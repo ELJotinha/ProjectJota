@@ -2,11 +2,133 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Minha Página Bonita</title>
-    <link rel="stylesheet" href="estilo.css">
+    <title>Verificar Pergunta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            padding: 20px;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .mensagem {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .pergunta {
+            background-color: #d1e7dd;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .resposta {
+            background-color: #f8d7da;
+            align-self: flex-start;
+            margin-right: auto;
+        }
+
+        .resultado {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .resultado.certo {
+            color: green;
+        }
+
+        .resultado.errado {
+            color: red;
+        }
+
+        .input-container {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .input-container button:hover {
+            background-color: #0b5ed7;
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
-    <h1>Olá, Mundo!</h1>
-    <p>Gaara cu frouxo</p>
+
+<div class="chat-container">
+    <div class="chat-messages" id="chat-messages">
+        <div class="mensagem resposta">Thiago é do Jobs?</div>
+    </div>
+
+    <div class="input-container">
+        <input type="text" id="respostaUsuario" placeholder="Digite sua resposta...">
+        <button onclick="verificarResposta()">Enviar</button>
+    </div>
+
+    <div id="resultado" class="resultado"></div>
+</div>
+
+<script>
+    function verificarResposta() {
+        const respostaCorreta = "Sim"; // Definimos a resposta correta
+        const respostaUsuario = document.getElementById("respostaUsuario").value.trim();
+
+        const chatMessages = document.getElementById("chat-messages");
+        const novaMensagem = document.createElement("div");
+        novaMensagem.classList.add("mensagem", "pergunta");
+        novaMensagem.textContent = respostaUsuario;
+        chatMessages.appendChild(novaMensagem);
+
+        const resultado = document.getElementById("resultado");
+
+        if (respostaUsuario.toLowerCase() === respostaCorreta.toLowerCase()) {
+            resultado.textContent = "Certo!";
+            resultado.classList.remove("errado");
+            resultado.classList.add("certo");
+        } else {
+            resultado.textContent = "Errado!";
+            resultado.classList.remove("certo");
+            resultado.classList.add("errado");
+        }
+
+        // Limpa o campo de resposta
+        document.getElementById("respostaUsuario").value = "";
+    }
+</script>
+
 </body>
 </html>
